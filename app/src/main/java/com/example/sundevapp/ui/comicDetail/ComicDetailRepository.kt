@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.sundevapp.network.ComicAPI
 import com.example.sundevapp.network.ComicDetailAPI
 import com.example.sundevapp.util.Constans
+import com.example.sundevapp.util.HandlerException
 import com.example.sundevapp.util.NetworkState
 import com.example.sundevapp.util.comicDetailResponse.ComicDetailResponse
 import com.example.sundevapp.util.comicResponse.ComicResponse
@@ -25,9 +26,11 @@ class ComicDetailRepository @Inject constructor(
     private val TAG = "ComicDetalRepository"
     //vars
     var comicDetailResponse: MutableLiveData<ComicDetailResponse> = MutableLiveData()
+    var handlerExceptions : MutableLiveData<HandlerException> = MutableLiveData()
 
-    suspend fun getComiDetail(comicDetail: String){
-        val call = retrofit.create(ComicDetailAPI::class.java).getComicDetail("4000-6", Constans.API_KEY,"json")
+    suspend fun getComicDetail(comicDetail: String){
+        val comicDetailString = getComicDetailString(comicDetail)
+        val call = retrofit.create(ComicDetailAPI::class.java).getComicDetail(comicDetailString, Constans.API_KEY,"json")
         if(networkState.getNetworkState()) {
             withContext(Dispatchers.IO) {
                 withTimeout(5000L) {
@@ -36,8 +39,9 @@ class ComicDetailRepository @Inject constructor(
                         override fun onResponse(call: Call<ComicDetailResponse>, response: Response<ComicDetailResponse>) {
                             if (response.code() == 200) {
                                 response.let {
-                                    Log.i(TAG,"onResponse: ${it}")
+                                    Log.i(TAG,"onResponse: $it")
                                     comicDetailResponse.value = it.body()
+                                    handlerExceptions.value = null
                                 }
 
                             }
@@ -45,13 +49,22 @@ class ComicDetailRepository @Inject constructor(
 
                         override fun onFailure(call: Call<ComicDetailResponse>, t: Throwable) {
                             Log.e(TAG, "An error was happen: ${t.message}")
+                            val handlerException = t.message?.let { HandlerException(it) }
+                            handlerExceptions.value = handlerException
                         }
                     })
                 }
             }
         }else{
             Log.i(TAG,"Without internet: ")
-
+            val handlerException = HandlerException("No internet connection")
+            handlerExceptions.value = handlerException
         }
+    }
+
+    private fun getComicDetailString(comicDetail: String): String{
+        val index = comicDetail.indexOf("issue")
+        val lastAppearanceOfSlash = comicDetail.lastIndexOf("/")
+        return comicDetail.substring(index+6, lastAppearanceOfSlash)
     }
 }

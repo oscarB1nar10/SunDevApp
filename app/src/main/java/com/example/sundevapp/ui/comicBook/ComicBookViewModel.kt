@@ -15,6 +15,7 @@ class ComicBookViewModel @Inject constructor(
     private val TAG = "ComicBookViewModel"
     //vars
     val comicResponse = comicBookRepository.comicResponse
+    val handlerExceptions =  comicBookRepository.handlerExceptions
 
     init {
         Log.i(TAG,"Injection is working...")

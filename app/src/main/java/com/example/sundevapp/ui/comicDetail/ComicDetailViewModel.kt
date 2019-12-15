@@ -14,6 +14,7 @@ class ComicDetailViewModel @Inject constructor(
     private val TAG = "ComicDetailViewModel"
     //vars
     val comicDetailResponse = comicDetailRepository.comicDetailResponse
+    val handlerExceptions =  comicDetailRepository.handlerExceptions
 
     init {
         Log.i(TAG,"Injection is working...")
@@ -22,7 +23,7 @@ class ComicDetailViewModel @Inject constructor(
     fun getComicDetail(comicDetail:  String){
         viewModelScope.launch(Dispatchers.Unconfined) {
             val job = GlobalScope.launch(Dispatchers.Unconfined) {
-                comicDetailRepository.getComiDetail(comicDetail)
+                comicDetailRepository.getComicDetail(comicDetail)
             }
             job.join()
         }

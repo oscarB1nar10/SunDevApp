@@ -12,4 +12,5 @@ class NetworkState @Inject constructor(private val connectivityManager: Connecti
         return networkInfo?.isConnected == true
 
     }
+
 }
