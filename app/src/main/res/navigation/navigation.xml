@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/comicBook">
+
+    <fragment
+        android:id="@+id/comicBook"
+        android:name="com.example.sundevapp.ui.comicBook.ComicBook"
+        android:label="fragment_comic_book"
+        tools:layout="@layout/fragment_comic_book" >
+        <action
+            android:id="@+id/action_comicBook_to_comicDetail"
+            app:destination="@id/comicDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/comicDetail"
+        android:name="com.example.sundevapp.ui.comicDetail.ComicDetail"
+        android:label="fragment_comic_detail"
+        tools:layout="@layout/fragment_comic_detail" >
+
+        <argument
+            android:name="comic_detail"
+            app:argType="string"/>
+
+    </fragment>
+</navigation>

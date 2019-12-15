@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">SunDevApp</string>
+
+    <string name="title_comic_book">CommicBook</string>
+    <string name="characters">Characters</string>
+    <string name="comic_detail_teams">Teams</string>
+    <string name="comic_detail_location">Locations</string>
+    <string name="comic_detail_concepts">Concepts</string>
 </resources>
