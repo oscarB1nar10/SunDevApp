@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.VisibleForTesting
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
@@ -15,8 +14,6 @@ import com.example.sundevapp.ui.comicBook.ComicBook
 import com.example.sundevapp.util.DateUtil
 import com.example.sundevapp.util.comicResponse.Result
 import com.squareup.picasso.Picasso
-import java.util.*
-import kotlin.collections.ArrayList
 
 class RecyclerComicsAdapter constructor(private val view: ComicBook) :
     RecyclerView.Adapter<RecyclerComicsAdapter.ViewHolder>() {

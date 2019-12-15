@@ -2,14 +2,12 @@ package com.example.sundevapp.ui.comicDetail
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.sundevapp.network.ComicAPI
 import com.example.sundevapp.network.ComicDetailAPI
 import com.example.sundevapp.util.ComicDetailUtil
 import com.example.sundevapp.util.Constans
 import com.example.sundevapp.util.HandlerException
 import com.example.sundevapp.util.NetworkState
 import com.example.sundevapp.util.comicDetailResponse.ComicDetailResponse
-import com.example.sundevapp.util.comicResponse.ComicResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout

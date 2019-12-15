@@ -93,7 +93,7 @@ class ComicBook : DaggerFragment() {
             pgMain.visibility = View.GONE
             srlMain.isRefreshing = false
             it?.let {
-                Snackbar.make(this!!.view!!, it.exceptionName, Snackbar.LENGTH_LONG)
+                Snackbar.make(this.view!!, it.exceptionName, Snackbar.LENGTH_LONG)
                     .setAction("Action", null)
                     .show()
             }
