@@ -31,4 +31,9 @@ Is an App that list a set of comics and offer specific detail about selected com
   - MainActivity (ComicBook, ComicBookDetail)
   - comicBook {ComicBook, ComicBookViewModel, ComicBookRepository}
   - ComicBookDetail {ComicBookDetail, ComicBookDetailViewModel, ComicBookDetailRepository}
+  
+  # Pictures
+  
+![SunDevPicture1](https://user-images.githubusercontent.com/43419630/70868023-0dee8d80-1f4a-11ea-8df3-5734178d312c.jpg)
+![SunDevPicture2](https://user-images.githubusercontent.com/43419630/70868024-0dee8d80-1f4a-11ea-8bca-f5df7aa22cc2.jpg)
 
