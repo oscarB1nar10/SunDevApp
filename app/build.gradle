@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: "de.mannodermaus.android-junit5"
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -16,6 +18,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArgument "runnerBuilder", "de.mannodermaus.junit5.AndroidJUnit5Builder"
+
     }
     buildTypes {
         release {
@@ -23,7 +27,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude "META-INF/LICENSE*"
+    }
+
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -35,6 +49,37 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+
+    // AndroidX test
+    def androidx_test_version = "1.1.0"
+    //implementation "androidx.test:core:$androidx_test_version"
+    //implementation "androidx.test:runner:$androidx_test_version"
+    //implementation "androidx.test:rules:$androidx_test_version"
+    androidTestImplementation "de.mannodermaus.junit5:android-test-core:$androidx_test_version"
+    androidTestRuntimeOnly "de.mannodermaus.junit5:android-test-runner:$androidx_test_version"
+
+    implementation("androidx.fragment:fragment-testing:1.1.0-beta01")
+    implementation("androidx.fragment:fragment-ktx:1.1.0-beta01")
+    implementation("androidx.test:core:1.2.0")
+    implementation("androidx.test:rules:1.2.0")
+    implementation("androidx.test:runner:1.2.0")
+
+
+
+    // -------- LOCAL UNIT TESTS (use JUnit5)
+    // JUnit Jupiter
+    def junit_jupiter_version = "5.3.2"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_jupiter_version"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$junit_jupiter_version"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit_jupiter_version"
+
+    // -------- MOCKITO
+    def mockito_version = "2.19.0"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    androidTestImplementation "org.mockito:mockito-android:$mockito_version"
+
 
     //Retrofit2 library
     def retrofit2_version = "2.3.0"
@@ -86,4 +131,5 @@ dependencies {
     implementation "com.google.dagger:dagger-android:$dagger_version"
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+
 }

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.sundevapp.network.ComicAPI
 import com.example.sundevapp.network.ComicDetailAPI
+import com.example.sundevapp.util.ComicDetailUtil
 import com.example.sundevapp.util.Constans
 import com.example.sundevapp.util.HandlerException
 import com.example.sundevapp.util.NetworkState
@@ -29,7 +30,7 @@ class ComicDetailRepository @Inject constructor(
     var handlerExceptions : MutableLiveData<HandlerException> = MutableLiveData()
 
     suspend fun getComicDetail(comicDetail: String){
-        val comicDetailString = getComicDetailString(comicDetail)
+        val comicDetailString = ComicDetailUtil.getComicDetailString(comicDetail)
         val call = retrofit.create(ComicDetailAPI::class.java).getComicDetail(comicDetailString, Constans.API_KEY,"json")
         if(networkState.getNetworkState()) {
             withContext(Dispatchers.IO) {
@@ -62,9 +63,4 @@ class ComicDetailRepository @Inject constructor(
         }
     }
 
-    private fun getComicDetailString(comicDetail: String): String{
-        val index = comicDetail.indexOf("issue")
-        val lastAppearanceOfSlash = comicDetail.lastIndexOf("/")
-        return comicDetail.substring(index+6, lastAppearanceOfSlash)
-    }
 }

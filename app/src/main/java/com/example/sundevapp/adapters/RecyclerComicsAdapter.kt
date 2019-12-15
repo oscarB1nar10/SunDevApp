@@ -5,12 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.VisibleForTesting
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sundevapp.R
 import com.example.sundevapp.ui.comicBook.ComicBook
+import com.example.sundevapp.util.DateUtil
 import com.example.sundevapp.util.comicResponse.Result
 import com.squareup.picasso.Picasso
 import java.util.*
@@ -35,7 +37,7 @@ class RecyclerComicsAdapter constructor(private val view: ComicBook) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.txvComicTitle.text = comicsDetail[position].name
-        holder.txvComicPublicationDate.text = getDateInCustomFormat(comicsDetail[position].date_last_updated)
+        holder.txvComicPublicationDate.text = DateUtil.getDateInCustomFormat(comicsDetail[position].date_last_updated)
         Picasso.get()
             .load(comicsDetail[position].image.small_url)
             .into(holder.imvComicImg)
@@ -58,67 +60,6 @@ class RecyclerComicsAdapter constructor(private val view: ComicBook) :
         diffResult.dispatchUpdatesTo(this)
     }
 
-    private fun getDateInCustomFormat(dateString: String): String{
-        val latsIndexInDate =  (dateString.indexOf(" ") )
-        val stringTokenizer = StringTokenizer(dateString.substring(0,latsIndexInDate), "-")
-        var iterator = 0
-        var year = ""
-        var moth = ""
-        var day = ""
-        while (stringTokenizer.hasMoreTokens()){
-            iterator++
-            when(iterator){
-                1 -> {year = stringTokenizer.nextToken() }
-                2 -> {moth = getMonthName(stringTokenizer.nextToken()) }
-                3 -> {day = stringTokenizer.nextToken() }
-            }
-        }
-       return  "$moth $day, $year"//October 03, 2018
-    }
-
-    private fun getMonthName(month: String): String{
-        return when(month){
-            "01" -> {
-                "JANUARY"
-            }
-            "02" -> {
-                "February"
-            }
-            "03" -> {
-                "March"
-            }
-            "04" -> {
-                "April"
-            }
-            "05" -> {
-                "May"
-            }
-            "06" -> {
-                "Jun"
-            }
-            "07" -> {
-                "July"
-            }
-            "08" -> {
-                "August"
-            }
-            "09" -> {
-                "September"
-            }
-            "10" -> {
-                "October"
-            }
-            "11" -> {
-                "November"
-            }
-            "12" -> {
-                "December"
-            }
-            else -> {
-                ""
-            }
-        }
-    }
 
 
     class UserItemDiffCallBack(

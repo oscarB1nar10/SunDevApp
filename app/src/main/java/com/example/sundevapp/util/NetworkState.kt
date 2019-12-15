@@ -10,7 +10,6 @@ class NetworkState @Inject constructor(private val connectivityManager: Connecti
     fun getNetworkState(): Boolean{
         val networkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
         return networkInfo?.isConnected == true
-
     }
 
 }
