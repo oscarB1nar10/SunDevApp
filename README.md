@@ -26,4 +26,9 @@ Is an App that list a set of comics and offer specific detail about selected com
 - Clean Architecture
 
 # Architecture
-* MVVM
+* MVVM 
+  - BaseApplication {AppComponent(AppModule, ViewModelFactoryModule, ActivityBuilderModule, UtilClassBuilderModule)
+  - MainActivity (ComicBook, ComicBookDetail)
+  - comicBook {ComicBook, ComicBookViewModel, ComicBookRepository}
+  - ComicBookDetail {ComicBookDetail, ComicBookDetailViewModel, ComicBookDetailRepository}
+
